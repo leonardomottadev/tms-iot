@@ -1,0 +1,148 @@
+###########################
+# Global / Comum
+###########################
+
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.swn
+*.DS_Store
+*.env
+.env.*
+!.env.example
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+###########################
+# Node.js / Angular
+###########################
+
+node_modules/
+dist/
+tmp/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.cache/
+.angular/
+
+###########################
+# .NET / Visual Studio / C#
+###########################
+
+## Compilação
+bin/
+obj/
+out/
+[Bb]uild/
+artifacts/
+
+## VS / Rider / VSCode
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.dbmdl
+
+## Pacotes / Restore
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+## Ferramentas
+.vs/
+_ReSharper*/
+*.DotSettings.user
+
+## Log e Dump
+*.log
+*.dmp
+
+## Publish
+publish/
+
+###########################
+# Java / Spring Boot
+###########################
+
+# Compilação
+target/
+build/
+
+# IDEs
+*.classpath
+*.project
+*.settings/
+*.iml
+
+# Maven
+.mvn/
+!**/src/**/.mvn/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# Gradle
+.gradle/
+build/
+
+# Logs
+*.log
+
+###########################
+# Arduino
+###########################
+
+*.elf
+*.hex
+*.bin
+*.eep
+*.obj
+*.o
+*.d
+*.map
+*.lst
+*.dep
+*.srec
+*.cproj
+*.cpp.bak
+*.ino.*
+build/
+__vm/
+.pio/
+
+###########################
+# OS / Arquivos temporários
+###########################
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.cache/
+.svn/
+
+###########################
+# Docker (se aplicável)
+###########################
+
+*.pid
+docker-compose.override.yml
+.docker/
+
