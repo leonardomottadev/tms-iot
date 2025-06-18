@@ -1,0 +1,8 @@
+<div class="container">
+    <h2>Temperatura e Umidade</h2>
+    <div class="card">
+    <p><strong>Temperatura:</strong> {{ data?.temperature }} °C</p>
+    <p><strong>Umidade:</strong> {{ data?.humidity }} %</p>
+    <p><strong>Horário:</strong> {{ data?.timestamp | date:'short' }}</p>
+    </div>
+</div>

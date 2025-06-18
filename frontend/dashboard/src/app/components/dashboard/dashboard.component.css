@@ -1,0 +1,12 @@
+.container { 
+    text-align: center; 
+    margin-top: 50px; 
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+}
