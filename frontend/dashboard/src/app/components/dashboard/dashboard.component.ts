@@ -39,6 +39,18 @@ export class DashboardComponent implements OnInit {
 
   public lineChartOptions: ChartOptions<'line'> = {
     responsive: true,
+    animations: {
+       x: {
+        type: 'number',
+        easing: 'linear',
+        duration: 400
+      },
+      y: {
+        type: 'number',
+        easing: 'linear',
+        duration: 0
+      }
+    },
     scales: {
       y: {
         beginAtZero: true
@@ -57,7 +69,13 @@ export class DashboardComponent implements OnInit {
     this.sensorService.getSensorData().subscribe({
       next: (data: SensorData) => {
         const now = new Date(data.timestamp);
-        this.labels.push(now.toLocaleTimeString());
+        const timeLabel = now.toLocaleTimeString();
+
+        if (this.labels.includes(timeLabel)) {
+          return;
+        }
+
+        this.labels.push(timeLabel);
         this.temperatureData.push(data.temperature);
         this.humidityData.push(data.humidity);        
 
@@ -66,6 +84,20 @@ export class DashboardComponent implements OnInit {
           this.temperatureData.shift();
           this.humidityData.shift();
         }
+
+        this.lineChartData = {
+        labels: [...this.labels],
+        datasets: [
+          {
+            ...this.lineChartData.datasets[0],
+            data: [...this.temperatureData]
+          },
+          {
+            ...this.lineChartData.datasets[1],
+            data: [...this.humidityData]
+          }
+        ]
+      };
 
         this.cdr.detectChanges();
         this.chart?.update();
