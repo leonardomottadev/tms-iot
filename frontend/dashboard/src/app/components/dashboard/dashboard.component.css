@@ -1,6 +1,18 @@
-.container { 
-    text-align: center; 
-    margin-top: 50px; 
+.container {
+  text-align: center;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+canvas {
+  width: 100% !important;
+  max-width: 900px !important;
+  height: auto !important;
+  max-height: 500px !important;
+  margin: 0 auto;
+  display: block;
 }
 
 .card {
