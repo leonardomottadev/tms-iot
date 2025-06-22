@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MqttService {
 
-    private String lastMessage = "Nenhuma mensagem recebida ainda.";
+    private String lastMessage = "{\"temperature\": 0.0, \"humidity\": 0.0, \"timestamp\": null}";
 
     public synchronized void updateMessage(String message) {
         this.lastMessage = message;
