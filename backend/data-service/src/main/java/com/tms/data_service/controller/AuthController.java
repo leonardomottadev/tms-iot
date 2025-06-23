@@ -2,6 +2,7 @@ package com.tms.data_service.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tms.data_service.dto.TokenResponse;
 import com.tms.data_service.service.AuthService;
 
 import org.springframework.security.core.Authentication;
@@ -17,23 +18,11 @@ public class AuthController {
     }
 
     @PostMapping("/auth")
-    public String authenticate(Authentication authentication) {
-
-        System.out.println("Requisição recebida em /auth");
-        try {
-            if (authentication != null) {
-                System.out.println("Authentication object: " + authentication);
-                System.out.println("Authentication Name (Principal): " + authentication.getName());
-                System.out.println("Authentication isAuthenticated(): " + authentication.isAuthenticated());
-                authentication.getAuthorities().forEach(a -> System.out.println("Authority: " + a.getAuthority()));
-            } else {
-                System.out.println("Authentication object is null.");
-            }
-        } catch(Exception exception){
-            System.out.println(exception.getMessage());
+    public TokenResponse authenticate(Authentication authentication) {
+        if (authentication != null) {
+            System.out.println("Authentication Name (Principal): " + authentication.getName());
         }
-
-
-        return authenticationService.authenticate(authentication);
+        String token = authenticationService.authenticate(authentication);
+        return new TokenResponse(token);
     }
 }
