@@ -54,8 +54,20 @@ public class User implements UserDetails {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setEmail(String email) {
@@ -68,6 +80,10 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setRole(Role  role) {
+        this.role = role;
     }
     
     @Override
