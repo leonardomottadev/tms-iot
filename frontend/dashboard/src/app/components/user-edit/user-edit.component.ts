@@ -29,7 +29,6 @@ export class UserEditComponent implements OnInit {
     console.log('COmponente iniciado');
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
 
-
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         console.log('Usuário carregado:', user);
@@ -55,5 +54,17 @@ export class UserEditComponent implements OnInit {
       next: () => this.router.navigate(['/dashboard']),
       error: () => alert('Erro ao salvar dados')
     });
+  }
+
+  deleteUser() {
+    if (confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.')) {
+      this.userService.deleteUser(this.userId).subscribe({
+        next: () => {
+          alert('Usuário excluído com sucesso!');
+          this.router.navigate(['/login']);
+        },
+        error: () => alert('Erro ao excluir usuário.')
+      });
+    }
   }
 }
