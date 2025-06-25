@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
+.app {
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
