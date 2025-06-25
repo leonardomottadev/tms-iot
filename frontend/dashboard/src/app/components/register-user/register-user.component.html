@@ -1,0 +1,35 @@
+<div class="form-container">
+  <h2>Cadastro de Usuário</h2>
+
+  <form (ngSubmit)="registerUser()" #userForm="ngForm" novalidate>
+
+    <div class="form-group">
+      <label for="name">Nome</label>
+      <input id="name" type="text" name="name" [(ngModel)]="name" required placeholder="Digite o nome completo">
+      <div class="error-message" *ngIf="userForm.submitted && !name">O nome é obrigatório.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" [(ngModel)]="email" required placeholder="Digite o email">
+      <div class="error-message" *ngIf="userForm.submitted && !email">O email é obrigatório.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input id="password" type="password" name="password" [(ngModel)]="password" required minlength="6" placeholder="Digite a senha">
+      <div class="error-message" *ngIf="userForm.submitted && (!password || password.length < 6)">
+        A senha é obrigatória e deve ter pelo menos 6 caracteres.
+      </div>
+    </div>
+    <button type="submit">Cadastrar</button>
+
+    <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <p class="login-link">
+        Já possui uma conta? <a routerLink="/regilohinster">Acesse sua conta</a>
+    </p>
+
+  </form>
+</div>

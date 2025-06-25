@@ -4,6 +4,7 @@ import { SensorData, SensorService } from '../../services/sensor.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { User, UserService } from '../../services/user.service'
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,7 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
+  currentUser: User | null = null;
   data: SensorData | null = null;
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   
@@ -58,11 +60,19 @@ export class DashboardComponent implements OnInit {
     }
   };
 
-  constructor(private sensorService: SensorService, private cdr: ChangeDetectorRef) {}
+  constructor(private sensorService: SensorService, private cdr: ChangeDetectorRef, private userService: UserService) {}
 
   ngOnInit(): void {
+    this.fetchUserInfo();
     this.fetchSensorData();
     this.fetchDataPeriodically();
+  }
+
+  fetchUserInfo() {
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => this.currentUser = user,
+      error: (err) => console.error('Erro ao buscar usuário:', err)
+    });
   }
 
   fetchSensorData(): void {
@@ -109,4 +119,10 @@ export class DashboardComponent implements OnInit {
   fetchDataPeriodically(): void {
     setInterval(() => this.fetchSensorData(), 5000);
   } 
+
+  editUser() {
+    if (this.currentUser) {
+      // this.router.navigate(['/user-edit', this.currentUser.id]);
+    }
+  }
 }
