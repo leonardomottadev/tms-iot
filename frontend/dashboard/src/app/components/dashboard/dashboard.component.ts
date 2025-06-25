@@ -5,10 +5,11 @@ import { ChangeDetectorRef } from '@angular/core';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { User, UserService } from '../../services/user.service'
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, BaseChartDirective],
+  imports: [CommonModule, BaseChartDirective, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -60,7 +61,12 @@ export class DashboardComponent implements OnInit {
     }
   };
 
-  constructor(private sensorService: SensorService, private cdr: ChangeDetectorRef, private userService: UserService) {}
+  constructor(
+    private sensorService: SensorService, 
+    private cdr: ChangeDetectorRef, 
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.fetchUserInfo();
@@ -122,7 +128,7 @@ export class DashboardComponent implements OnInit {
 
   editUser() {
     if (this.currentUser) {
-      // this.router.navigate(['/user-edit', this.currentUser.id]);
+      this.router.navigate(['/user-edit', this.currentUser.id]);
     }
   }
 }

@@ -1,0 +1,23 @@
+<div class="edit-container" *ngIf="form">
+  <h2>Editar Perfil</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-group">
+      <label>Nome</label>
+      <input formControlName="name" />
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input formControlName="email" />
+    </div>
+
+    <div class="form-group">
+      <label>Senha (opcional)</label>
+      <input formControlName="password" type="password" placeholder="Deixe em branco para manter a senha atual" />
+    </div>
+
+    <button type="submit">Salvar</button>
+    <button type="button" (click)="router.navigate(['/dashboard'])">Cancelar</button>
+  </form>
+</div>

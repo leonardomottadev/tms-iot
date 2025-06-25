@@ -9,6 +9,14 @@ export interface User {
   role: string;
 }
 
+export interface UpdatedUser {
+  id: number;
+  name: string;
+  password?: string;
+  email: string;
+  role: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private apiUrl = 'http://localhost:9090/users';
@@ -19,7 +27,7 @@ export class UserService {
     return this.http.get<User>(`${this.apiUrl}/me`);
   }
 
-  updateUser(id: number, data: Partial<User>): Observable<User> {
+  updateUser(id: number, data: Partial<UpdatedUser>): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/${id}`, data);
   }
 }
