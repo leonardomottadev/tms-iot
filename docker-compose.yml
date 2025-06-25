@@ -1,4 +1,7 @@
+version: "3.8"
+
 services:
+
   postgres-db:
     image: postgres:15-alpine
     container_name: tms-backend-database
@@ -10,6 +13,36 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  sensor-reader:
+    build:
+      context: ./backend/sensor-reader
+    container_name: tms-backend-sensor-reader
+    restart: unless-stopped
+
+  data-service:
+    build:
+      context: ./backend/data-service
+    container_name: tms-backend-data-service
+    ports:
+      - "9090:9090"
+    depends_on:
+      - postgres-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/tmssensordb
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+    restart: unless-stopped
+
+  dashboard:
+    build:
+      context: ./frontend/dashboard
+    container_name: tms-frontend-dashboard
+    ports:
+      - "8080:80"
+    depends_on:
+      - data-service
     restart: unless-stopped
 
 volumes:
