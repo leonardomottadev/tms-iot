@@ -14,8 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/users")
+@Tag(name = "Users", description = "User management")
 public class UserController {
 
     private final UserRepository userRepository;
@@ -27,6 +32,10 @@ public class UserController {
     }
 
     @PostMapping
+    @Operation(
+        summary = "Create a new user",
+        description = "Creates a new user. Does not require authentication."
+    )
     public UserDTO createUser(@RequestBody UserCreateRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already in use"); // Retornando: 401 Unauthorized?
@@ -43,6 +52,11 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+        summary = "Update a user",
+        description = "Updates user data."
+    )
+    @SecurityRequirement(name = "bearerAuth")
     public UserDTO updateUser(@PathVariable long id, @RequestBody UserUpdateRequest request, Authentication authentication) {
         User user = userRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
@@ -71,6 +85,11 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @Operation(
+        summary = "Get user by ID",
+        description = "Returns user data by ID."
+    )
+    @SecurityRequirement(name = "bearerAuth")
     public UserDTO getUserById(@PathVariable long id) {
         return userRepository.findById(id)
             .map(UserMapper::toDTO)
@@ -78,6 +97,11 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(
+        summary = "Delete user",
+        description = "Removes a user by ID."
+    )
+    @SecurityRequirement(name = "bearerAuth")
     public void deleteUserById(@PathVariable long id, Authentication authentication) {
 
         if (!userRepository.existsById(id)) {
@@ -96,6 +120,11 @@ public class UserController {
     }
 
     @GetMapping("/me")
+    @Operation(
+        summary = "Get current user",
+        description = "Returns the data of the currently authenticated user."
+    )
+    @SecurityRequirement(name = "bearerAuth")
     public UserDTO getCurrentUser(Authentication authentication) {
         String email = authentication.getName();
         return userRepository.findByEmail(email)

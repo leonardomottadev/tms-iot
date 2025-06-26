@@ -5,10 +5,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tms.data_service.dto.TokenResponse;
 import com.tms.data_service.service.AuthService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
+@Tag(name = "Authentication", description = "JWT token generation")
 public class AuthController {
     
     private AuthService authenticationService;
@@ -16,8 +21,13 @@ public class AuthController {
     public AuthController(AuthService authenticationService) {
         this.authenticationService = authenticationService;
     }
-
+    
     @PostMapping("/auth")
+    @Operation(
+        summary = "Authenticate and obtain JWT token",
+        description = "Generates a JWT token for the authenticated user using Basic Auth."
+    )
+    @SecurityRequirement(name = "basicAuth")
     public TokenResponse authenticate(Authentication authentication) {
         if (authentication != null) {
             System.out.println("Authentication Name (Principal): " + authentication.getName());

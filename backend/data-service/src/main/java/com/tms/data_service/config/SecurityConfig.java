@@ -47,6 +47,11 @@ public class SecurityConfig {
         auth -> auth
           .requestMatchers(HttpMethod.POST, "/users").permitAll()
           .requestMatchers("/auth").permitAll()
+          .requestMatchers(
+              "/v3/api-docs/**",
+              "/swagger-ui/**",
+              "/swagger-ui.html"
+          ).permitAll()
           .anyRequest().authenticated())
         .httpBasic(Customizer.withDefaults())
         .oauth2ResourceServer(
