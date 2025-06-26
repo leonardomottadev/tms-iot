@@ -6,18 +6,16 @@ import org.springframework.stereotype.Component;
 import com.tms.data_service.service.MqttService;
 
 import jakarta.annotation.PreDestroy;
+import lombok.RequiredArgsConstructor;
 
 import org.eclipse.paho.client.mqttv3.*;
 
 @Component
+@RequiredArgsConstructor
 public class MqttSubscriber implements CommandLineRunner {
 
     private MqttClient client;
     private final MqttService mqttService;
-
-    public MqttSubscriber(MqttService mqttService) {
-        this.mqttService = mqttService;
-    }
 
     @Override
     public void run(String... args) throws Exception {

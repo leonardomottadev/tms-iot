@@ -10,19 +10,16 @@ import com.tms.data_service.service.MqttService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @Tag(name = "Sensors", description = "Sensor data retrieval")
+@RequiredArgsConstructor
 public class SensorController {
 
     private final MqttService mqttService;
     private final ObjectMapper objectMapper;
-
-    public SensorController(MqttService mqttService, ObjectMapper objectMapper) {
-        this.mqttService = mqttService;
-        this.objectMapper = objectMapper;
-    }
-
+    
     @GetMapping("/sensor")
     @Operation(
         summary = "Get sensor data",

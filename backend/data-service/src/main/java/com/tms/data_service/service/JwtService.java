@@ -10,13 +10,12 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class JwtService {
     private final JwtEncoder encoder;
-
-    public JwtService(JwtEncoder encoder) {
-        this.encoder = encoder;
-    }
 
     public String generateToken(Authentication authentication)  {
         Instant now = Instant.now();
