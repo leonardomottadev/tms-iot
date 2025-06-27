@@ -35,7 +35,7 @@ export class UserEditComponent implements OnInit {
         this.user = user;
         this.form = this.fb.group({
           name: [user.name],
-          email: [user.email],
+          //email: [user.email],
           password: ['']
         });
         this.cdr.detectChanges();

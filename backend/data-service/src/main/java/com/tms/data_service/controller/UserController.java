@@ -69,9 +69,6 @@ public class UserController {
         if (request.getName() != null) {
             user.setName(request.getName());
         }
-        if (request.getEmail() != null) {
-            user.setEmail(request.getEmail());
-        }
         if (request.getPassword() != null && !request.getPassword().isBlank()) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
