@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 class UserControllerTest {
@@ -101,7 +102,7 @@ class UserControllerTest {
         User existingUser = new User(2L, "Old Name", "old@email.com", "oldpass", Role.USER);
         User adminUser = new User(1L, "Admin", "admin@email.com", "adminpass", Role.ADMIN);
 
-        UserUpdateRequest request = new UserUpdateRequest("New Name", "new@email.com", "newpass", "USER");
+        UserUpdateRequest request = new UserUpdateRequest("New Name", "newpass", "USER");
 
         when(userRepository.findById(2L)).thenReturn(Optional.of(existingUser));
         when(userRepository.findByEmail("admin@email.com")).thenReturn(Optional.of(adminUser));
@@ -111,7 +112,14 @@ class UserControllerTest {
         UserDTO dto = userController.updateUser(2L, request, auth);
 
         assertEquals("New Name", dto.getName());
-        assertEquals("new@email.com", dto.getEmail());
+
+        verify(passwordEncoder).encode("newpass");
+
+        verify(userRepository).save(argThat(user ->
+            user.getName().equals("New Name") &&
+            user.getPassword().equals("encodedNewPass") &&
+            user.getEmail().equals("old@email.com")
+        ));
     }
 
     @Test
@@ -122,7 +130,7 @@ class UserControllerTest {
         User existingUser = new User(2L, "User", "user@email.com", "pass", Role.USER);
         User loggedUser = new User(3L, "Other", "other@email.com", "pass", Role.USER);
 
-        UserUpdateRequest request = new UserUpdateRequest("New", null, null, null);
+        UserUpdateRequest request = new UserUpdateRequest("New", null, null);
 
         when(userRepository.findById(2L)).thenReturn(Optional.of(existingUser));
         when(userRepository.findByEmail("other@email.com")).thenReturn(Optional.of(loggedUser));
