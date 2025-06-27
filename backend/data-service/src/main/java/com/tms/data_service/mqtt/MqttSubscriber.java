@@ -40,14 +40,14 @@ public class MqttSubscriber implements CommandLineRunner {
                         client.setCallback(new MqttCallback() {
                             @Override
                             public void connectionLost(Throwable cause) {
-                                System.err.println("Conexão perdida: " + cause.getMessage());
+                                System.err.println("Lost connection: " + cause.getMessage());
                                 retryConnection();
                             }
 
                             @Override
                             public void messageArrived(String topic, MqttMessage message) throws Exception {
                                 String payload = new String(message.getPayload());
-                                System.out.println("Mensagem recebida: " + payload);
+                                System.out.println("Payload: " + payload);
                                 mqttService.updateMessage(payload);
                             }
 
@@ -58,12 +58,12 @@ public class MqttSubscriber implements CommandLineRunner {
                         });
 
                         client.connect(options);
-                        System.out.println("Conectado ao broker EMQX");
+                        System.out.println("Connected to EMQX Broker");
                         client.subscribe(topic);
                     }
                     Thread.sleep(5000);
                 } catch (Exception e) {
-                    System.err.println("Erro ao conectar: " + e.getMessage());
+                    System.err.println("Failed to conect: " + e.getMessage());
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException ie) {
@@ -80,7 +80,7 @@ public class MqttSubscriber implements CommandLineRunner {
                 client.disconnect();
             }
         } catch (MqttException ignored) { 
-            System.out.println("Erro ao reconectar MQTT.");
+            System.out.println("Retry MQTT connection error.");
         }
     }
 
@@ -90,7 +90,7 @@ public class MqttSubscriber implements CommandLineRunner {
         if (client != null && client.isConnected()) {
             client.disconnect();
             client.close();
-            System.out.println("Conexão MQTT encerrada.");
+            System.out.println("MQTT connection closed.");
         }
     }
 }

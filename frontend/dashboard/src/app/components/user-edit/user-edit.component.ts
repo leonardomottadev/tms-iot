@@ -26,12 +26,10 @@ export class UserEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('COmponente iniciado');
     this.userId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
-        console.log('Usuário carregado:', user);
         this.user = user;
         this.form = this.fb.group({
           name: [user.name],
@@ -40,7 +38,7 @@ export class UserEditComponent implements OnInit {
         });
         this.cdr.detectChanges();
       },
-      error: () => alert('Erro ao carregar dados do usuário')
+      error: () => alert('Error loading user data')
     });
   }
 
@@ -52,19 +50,20 @@ export class UserEditComponent implements OnInit {
 
     this.userService.updateUser(this.userId, formData).subscribe({
       next: () => this.router.navigate(['/dashboard']),
-      error: () => alert('Erro ao salvar dados')
+      error: () => alert('Error saving data')
     });
   }
 
   deleteUser() {
-    if (confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.')) {
+    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
       this.userService.deleteUser(this.userId).subscribe({
         next: () => {
-          alert('Usuário excluído com sucesso!');
+          alert('User successfully deleted!');
           this.router.navigate(['/login']);
         },
-        error: () => alert('Erro ao excluir usuário.')
+        error: () => alert('Error deleting user.')
       });
     }
   }
+
 }

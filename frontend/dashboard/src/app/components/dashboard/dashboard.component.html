@@ -1,15 +1,14 @@
-
 <div class="container">
-  <h2>Temperatura e Umidade em Tempo Real</h2>
+  <h2>Real-Time Temperature and Humidity</h2>
   <canvas baseChart
           [data]="lineChartData"
           [options]="lineChartOptions"
           [type]="'line'">
   </canvas>
   <div class="user-info user-card">
-    <h3 class="user-title">Perfil de Usuário</h3>
-    <div class="user-field"><span class="label">Nome:</span> {{ currentUser?.name }}</div>
+    <h3 class="user-title">User Profile</h3>
+    <div class="user-field"><span class="label">Name:</span> {{ currentUser?.name }}</div>
     <div class="user-field"><span class="label">Email:</span> {{ currentUser?.email }}</div>
-    <button (click)="editUser()" class="edit-button">Editar perfil</button>
+    <button (click)="editUser()" class="edit-button">Edit Profile</button>
   </div>
 </div>

@@ -27,13 +27,13 @@ export class DashboardComponent implements OnInit {
     datasets: [
       {
         data: this.temperatureData,
-        label: 'Temperatura (°C)',
+        label: 'Temperature (°C)',
         fill: false,
         tension: 0.3,
       },
       {
         data: this.humidityData,
-        label: 'Umidade (%)',
+        label: 'Humidity (%)',
         fill: false,
         tension: 0.3,
       }
@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
   fetchUserInfo() {
     this.userService.getCurrentUser().subscribe({
       next: (user) => this.currentUser = user,
-      error: (err) => console.error('Erro ao buscar usuário:', err)
+      error: (err) => console.error('Error loading user:', err)
     });
   }
 
@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
         this.cdr.detectChanges();
         this.chart?.update();
       },
-      error: err => console.error('Erro ao obter dados do sensor:', err)
+      error: err => console.error('Error loading sensor data:', err)
     });
   }
 

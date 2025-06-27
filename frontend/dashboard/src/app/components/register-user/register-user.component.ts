@@ -25,7 +25,7 @@ export class RegisterUserComponent {
 
   registerUser() {
     if (!this.name || !this.email || !this.password || this.password.length < 6) {
-      this.errorMessage = "Preencha todos os campos corretamente.";
+      this.errorMessage = "Please fill out all fields correctly.";
       this.successMessage = '';
       return;
     }
@@ -39,7 +39,7 @@ export class RegisterUserComponent {
 
     this.http.post('http://localhost:9090/users', userData).subscribe({
       next: () => {
-        this.successMessage = "Usuário cadastrado com sucesso!";
+        this.successMessage = "User successfully registered!";
         this.errorMessage = '';
         this.name = '';
         this.email = '';
@@ -48,9 +48,9 @@ export class RegisterUserComponent {
         this.router.navigate(['/login']);
       },
       error: (error) => {
-        console.error('Erro ao registrar usuário:', error);
+        console.error('Error registering user:', error);
         this.successMessage = '';
-        this.errorMessage = error?.error?.message || 'Erro ao registrar usuário.';
+        this.errorMessage = error?.error?.message || 'Error registering user.';
       }
     });
   }

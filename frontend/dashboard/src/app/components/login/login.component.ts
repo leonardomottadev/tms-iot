@@ -29,7 +29,7 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']);
       },
       error: () => {
-        this.error = 'Usuário ou senha inválidos';
+        this.error = 'Invalid username or password';
       }
     });
   }
